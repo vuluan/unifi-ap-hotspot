@@ -87,7 +87,7 @@
               <div class="unifiPortalFormFooter">
                 <div class="unifiPortalFormFooter__right">
                                  
-                  <div class="fb-like" data-href="https://www.facebook.com/hairsalonnguyentung/" data-layout="button" data-action="like" data-size="large" data-show-faces="false" data-share="false"></div>
+                  <div id="btn-like-facebook" class="fb-like" data-href="https://www.facebook.com/hairsalonnguyentung/" data-layout="button" data-action="like" data-size="large" data-show-faces="false" data-share="false"></div>
                   
                   <div ng-if="homeCtrl.isFacebookAuthenticationEnabled()" class="unifiPortalFormFooter__group" id="btn-facebook" style="display:none;">
                     <button ng-click="homeCtrl.connectFacebook()" ng-disabled="homeCtrl.hotspotConfigModel.tos_enabled &amp;&amp; !homeCtrl.isTosAccepted()" unifi-portal-custom-button unifi-portal-custom-button-background-color="'#3b5998'" unifi-portal-custom-button-text-color="homeCtrl.hotspotConfigModel.button_text_color" busy-toggle="homeCtrl.isFacebookConnecting" busy-toggle-spinner-classes="['unifiPortalSpinner unifiPortalSpinner--light unifiPortalSpinner--centered']" class="unifiPortalMainButton unifiPortalMainButton--primary unifiPortalMainButton--responsive unifiPortalMainButton--steady">LOGIN FB TO GET FREE WIFI</button>
