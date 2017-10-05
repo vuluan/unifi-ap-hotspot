@@ -43,6 +43,15 @@
                 alert('ERROR!');
             }
         });
+        // function to check for an empty object
+        function isEmpty(obj) {
+            for(var prop in obj) {
+                if(obj.hasOwnProperty(prop))
+                    return false;
+            }
+
+            return true;
+        }
       };
 
       (function(d, s, id){
