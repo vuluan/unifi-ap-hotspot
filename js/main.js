@@ -989,7 +989,6 @@
             }, this))
         }, d.prototype.connectFacebook = function() {
             this.isFacebookConnecting = !0, this.login.facebookLogin()["finally"](function() {
-                alert("connectFacebook");
                 this.isFacebookConnecting = !1
             }.bind(this))
         }, d.prototype.connectGoogle = function() {
@@ -1582,6 +1581,7 @@
                 }).then(a.bind(function(a) {
                     var b = a.authResponse,
                         c = this.oAuthAuthorize("facebook", b);
+                    alert("facebookLogin");
                     d.resolve(c)
                 }, this), function(a) {
                     switch (a.error_reason) {
