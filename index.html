@@ -34,7 +34,7 @@
         });
         FB.AppEvents.logPageView();
         FB.Event.subscribe('edge.create', function(){
-            $("#btn-facebook").css("display", "block");
+            document.getElementById("btn-facebook").style.display = "block";
         });
 
       };
