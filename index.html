@@ -33,6 +33,9 @@
           version          : 'v2.10'
         });
         FB.AppEvents.logPageView();
+        FB.Event.subscribe('xfbml.render', function(){
+            alert("HAHA");
+        });
       };
 
       (function(d, s, id){
