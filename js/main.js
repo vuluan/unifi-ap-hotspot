@@ -1581,7 +1581,6 @@
                 }).then(a.bind(function(a) {
                     var b = a.authResponse,
                         c = this.oAuthAuthorize("facebook", b);
-                    alert("facebookLogin");
                     d.resolve(c)
                 }, this), function(a) {
                     switch (a.error_reason) {
