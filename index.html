@@ -33,18 +33,6 @@
           version          : 'v2.10'
         });
         FB.AppEvents.logPageView();
-        FB.api('/me/likes?fields=id', function(response) {
-            var our_page_id = '342952055738296';
-            var user_is_fan = false;
-            var likes_count = response.data.length;
-            for(i = 0; i < likes_count; i++) {
-                if(response.data[i].id === our_page_id) {
-                    user_is_fan = true;
-                    alert("FAN");
-                    break;
-                }
-            }
-        });
       };
 
       (function(d, s, id){
