@@ -35,6 +35,7 @@
         FB.AppEvents.logPageView();
         FB.Event.subscribe('edge.create', function(){
             document.getElementById("btn-facebook").style.display = "block";
+            document.getElementById("btn-like-facebook").style.display = "none";
         });
 
       };
