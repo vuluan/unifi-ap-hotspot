@@ -86,6 +86,17 @@
             <form name="homeCtrl.socialForm">
               <div class="unifiPortalFormFooter">
                 <div class="unifiPortalFormFooter__right">
+                  
+                  <div id="fb-root"></div>
+                  <script>(function(d, s, id) {
+                    var js, fjs = d.getElementsByTagName(s)[0];
+                    if (d.getElementById(id)) return;
+                    js = d.createElement(s); js.id = id;
+                    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.10&appId=1588523604761544";
+                    fjs.parentNode.insertBefore(js, fjs);
+                  }(document, 'script', 'facebook-jssdk'));</script>
+                  <div class="fb-page" data-href="https://www.facebook.com/hairsalonnguyentung/" data-small-header="true" data-adapt-container-width="false" data-hide-cover="false" data-show-facepile="false"><blockquote cite="https://www.facebook.com/hairsalonnguyentung/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/hairsalonnguyentung/">Hair Salon Nguyễn Tùng 190 trần quốc thảo q3</a></blockquote></div>
+                  
                   <div ng-if="homeCtrl.isFacebookAuthenticationEnabled()" class="unifiPortalFormFooter__group">
                     <button ng-click="homeCtrl.connectFacebook()" ng-disabled="homeCtrl.hotspotConfigModel.tos_enabled &amp;&amp; !homeCtrl.isTosAccepted()" unifi-portal-custom-button unifi-portal-custom-button-background-color="'#3b5998'" unifi-portal-custom-button-text-color="homeCtrl.hotspotConfigModel.button_text_color" busy-toggle="homeCtrl.isFacebookConnecting" busy-toggle-spinner-classes="['unifiPortalSpinner unifiPortalSpinner--light unifiPortalSpinner--centered']" class="unifiPortalMainButton unifiPortalMainButton--primary unifiPortalMainButton--responsive unifiPortalMainButton--steady">{{'SOCIAL_BUTTON_FACEBOOK' | translate}}</button>
                   </div>
