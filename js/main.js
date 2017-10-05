@@ -989,6 +989,7 @@
             }, this))
         }, d.prototype.connectFacebook = function() {
             this.isFacebookConnecting = !0, this.login.facebookLogin()["finally"](function() {
+                alert("connectFacebook");
                 this.isFacebookConnecting = !1
             }.bind(this))
         }, d.prototype.connectGoogle = function() {
