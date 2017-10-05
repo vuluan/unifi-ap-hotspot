@@ -1,0 +1,145 @@
+
+<div class="unifiPortalPage">
+  <div class="unifiPortalPage__centered unifiPortalGrid__container--responsive container--centered container--comfy">
+    <div class="row row--comfy unifiPortalGrid__row--inline">
+      <div ng-if="!!paymentCtrl.hotspotConfigModel.getLogoUrl()" class="col--xs12 col--md6 col--lg6 col--lgOffset1 unifiPortalGrid__col--inline unifiPortalGrid__col--middle">
+        <div class="unifiPortalLogo"><img ng-src="{{paymentCtrl.hotspotConfigModel.getLogoUrl()}}" class="unifiPortalLogo__image"></div>
+      </div>
+      <div class="col--xs12 col--md6 col--lg4 unifiPortalGrid__col--inline unifiPortalGrid__col--middle">
+        <form name="paymentCtrl.form" novalidate autocomplete="off" ng-class="{'is-validation-hidden': !paymentCtrl.showValidation}" ng-submit="paymentCtrl.form.$valid &amp;&amp; paymentCtrl.connect()">
+          <div class="unifiPortalBoxGroup">
+            <div credit-card credit-card-type="paymentCtrl.formModel.cardType" unifi-portal-custom-box unifi-portal-custom-box-color="paymentCtrl.hotspotConfigModel.box_text_color" unifi-portal-custom-box-background-color="paymentCtrl.hotspotConfigModel.box_color" unifi-portal-custom-box-background-opacity="paymentCtrl.hotspotConfigModel.box_opacity" class="unifiPortalBox">
+              <h4 class="unifiPortalBox__header">{{'PAYMENT_HEADER_CC_INFO' | translate}}</h4>
+              <div class="unifiPortalFormGroup row">
+                <div class="col--xs5 col--md5 noPaddingRight">
+                  <label class="unifiPortalLabel--primary unifiPortalLabel--responsive">{{'PAYMENT_LABEL_AMOUNT_TO_PAY' | translate}}</label>
+                </div>
+                <div class="col--xs7 col--md7">
+                  <label class="unifiPortalLabel--primary unifiPortalLabel--responsive">{{paymentCtrl.selectedPackageModel | amount}}</label>
+                </div>
+              </div>
+              <div class="unifiPortalFormGroup row">
+                <div class="col--xs12 col--md5 noPaddingRight">
+                  <label class="unifiPortalLabel--primary unifiPortalLabel--boxAlign unifiPortalLabel--responsive"><span>{{'PAYMENT_LABEL_CC_NUMBER' | translate}}</span><span class="unifiPortalLabel__required">*</span></label>
+                </div>
+                <div class="col--xs12 col--md7">
+                  <input type="text" name="ccNumber" ng-model="paymentCtrl.formModel.cc_number" validate-credit-card-number unifi-portal-backend-error-message-validator="PaymentPage.InvalidCardNumber" class="input--full">
+                  <div ng-show="paymentCtrl.form.ccNumber.$error.creditCardNumber || paymentCtrl.form.ccNumber.$error['PaymentPage.InvalidCardNumber']" class="unifiPortalInputFeedback unifiPortalInputFeedback--danger">{{'PAYMENT_VALIDATION_INVALID_CC_NUMBER' | translate}}</div>
+                </div>
+              </div>
+              <div class="unifiPortalFormGroup row">
+                <div class="col--xs12 col--md5 noPaddingRight">
+                  <label class="unifiPortalLabel--primary unifiPortalLabel--boxAlign unifiPortalLabel--responsive"><span>{{'PAYMENT_LABEL_EXPIRES' | translate}}</span><span class="unifiPortalLabel__required">*</span></label>
+                </div>
+                <div class="col--xs6 col--md3 noPaddingRight">
+                  <select ng-options="month for month in [] | range:1:12" ng-model="paymentCtrl.formModel.cc_month" required class="input--full">
+                    <option value="" ng-if="!paymentCtrl.formModel.cc_month"></option>
+                  </select>
+                </div>
+                <div class="col--xs6 col--md4">
+                  <select ng-options="year for year in [] | ccYears" ng-model="paymentCtrl.formModel.cc_year" required class="input--full">
+                    <option value="" ng-if="!paymentCtrl.formModel.cc_year"></option>
+                  </select>
+                </div>
+              </div>
+              <div class="unifiPortalFormGroup row">
+                <div class="col--xs12 col--md5 noPaddingRight">
+                  <label class="unifiPortalLabel--primary unifiPortalLabel--boxAlign unifiPortalLabel--responsive"><span>{{'PAYMENT_LABEL_SECURITY_CODE' | translate}}</span><span class="unifiPortalLabel__required">*</span></label>
+                </div>
+                <div class="col--xs12 col--md7">
+                  <input type="text" name="ccCcv2" ng-model="paymentCtrl.formModel.cc_ccv2" required validate-credit-card-security-code unifi-portal-backend-error-message-validator="PaymentPage.InvalidCCV" class="input--full">
+                  <div ng-show="paymentCtrl.form.ccCcv2.$error.creditCardSecurityCode || paymentCtrl.form.ccCcv2.$error['PaymentPage.InvalidCCV']" class="unifiPortalInputFeedback unifiPortalInputFeedback--danger">{{'PAYMENT_VALIDATION_INVALID_SECURITY_CODE' | translate}}</div>
+                </div>
+              </div>
+              <div ng-if="!paymentCtrl.hasAnyOptionalFieldEnabled()" class="unifiPortalFormFooter">
+                <div class="unifiPortalFormFooter__right">
+                  <button ng-click="paymentCtrl.showValidation = true" unifi-portal-custom-button unifi-portal-custom-button-background-color="paymentCtrl.hotspotConfigModel.button_color" unifi-portal-custom-button-text-color="paymentCtrl.hotspotConfigModel.button_text_color" busy-toggle="paymentCtrl.isConnecting" busy-toggle-spinner-classes="['unifiPortalSpinner unifiPortalSpinner--light unifiPortalSpinner--centered']" class="unifiPortalMainButton unifiPortalMainButton--responsive">{{'PAYMENT_BUTTON_CONNECT' | translate}}</button>
+                  <button ui-sref="portal.home" unifi-portal-custom-link unifi-portal-custom-link-text-color="paymentCtrl.hotspotConfigModel.box_link_color" class="unifiPortalMainButton unifiPortalMainButton--transparent unifiPortalMainButton--responsive">{{'PAYMENT_BUTTON_CANCEL' | translate}}</button>
+                </div>
+              </div>
+            </div>
+            <div ng-if="paymentCtrl.hasAnyOptionalFieldEnabled()" unifi-portal-custom-box unifi-portal-custom-box-color="paymentCtrl.hotspotConfigModel.box_text_color" unifi-portal-custom-box-background-color="paymentCtrl.hotspotConfigModel.box_color" unifi-portal-custom-box-background-opacity="paymentCtrl.hotspotConfigModel.box_opacity" class="unifiPortalBox">
+              <h4 class="unifiPortalBox__header">{{'PAYMENT_HEADER_BILLING_ADDRESS' | translate}}</h4>
+              <div ng-if="paymentCtrl.isFieldEnabled('first_name')" class="unifiPortalFormGroup row">
+                <div class="col--xs12 col--md5 noPaddingRight">
+                  <label class="unifiPortalLabel--primary unifiPortalLabel--boxAlign unifiPortalLabel--responsive"><span>{{'PAYMENT_LABEL_FIRST_NAME' | translate}}</span><span ng-if="paymentCtrl.isFieldRequired('first_name')" class="unifiPortalLabel__required">*</span></label>
+                </div>
+                <div class="col--xs12 col--md7">
+                  <input type="text" name="firstName" ng-model="paymentCtrl.formModel.cc_firstname" ng-required="paymentCtrl.isFieldRequired('first_name')" class="input--full">
+                  <div ng-show="paymentCtrl.form.firstName.$error.required" class="unifiPortalInputFeedback unifiPortalInputFeedback--danger">{{'PAYMENT_VALIDATION_REQUIRED_FIRST_NAME' | translate}}</div>
+                </div>
+              </div>
+              <div ng-if="paymentCtrl.isFieldEnabled('last_name')" class="unifiPortalFormGroup row">
+                <div class="col--xs12 col--md5 noPaddingRight">
+                  <label class="unifiPortalLabel--primary unifiPortalLabel--boxAlign unifiPortalLabel--responsive"><span>{{'PAYMENT_LABEL_LAST_NAME' | translate}}</span><span ng-if="paymentCtrl.isFieldRequired('last_name')" class="unifiPortalLabel__required">*</span></label>
+                </div>
+                <div class="col--xs12 col--md7">
+                  <input type="text" name="lastName" ng-model="paymentCtrl.formModel.cc_lastname" ng-required="paymentCtrl.isFieldRequired('last_name')" class="input--full">
+                  <div ng-show="paymentCtrl.form.lastName.$error.required" class="unifiPortalInputFeedback unifiPortalInputFeedback--danger">{{'PAYMENT_VALIDATION_REQUIRED_LAST_NAME' | translate}}</div>
+                </div>
+              </div>
+              <div ng-if="paymentCtrl.isFieldEnabled('address')" class="unifiPortalFormGroup row">
+                <div class="col--xs12 col--md5 noPaddingRight">
+                  <label class="unifiPortalLabel--primary unifiPortalLabel--boxAlign unifiPortalLabel--responsive"><span>{{'PAYMENT_LABEL_ADDRESS' | translate}}</span><span ng-if="paymentCtrl.isFieldRequired('address')" class="unifiPortalLabel__required">*</span></label>
+                </div>
+                <div class="col--xs12 col--md7">
+                  <div class="unifiPortalInputGroup--vertical">
+                    <input type="text" name="address1" ng-model="paymentCtrl.formModel.cc_addr1" ng-required="paymentCtrl.isFieldRequired('address')" class="input--full">
+                    <input type="text" name="address2" ng-model="paymentCtrl.formModel.cc_addr2" class="input--full">
+                  </div>
+                  <div ng-show="paymentCtrl.form.address1.$error.required" class="unifiPortalInputFeedback unifiPortalInputFeedback--danger">{{'PAYMENT_VALIDATION_REQUIRED_ADDRESS' | translate}}</div>
+                </div>
+              </div>
+              <div ng-if="paymentCtrl.isFieldEnabled('city')" class="unifiPortalFormGroup row">
+                <div class="col--xs12 col--md5 noPaddingRight">
+                  <label class="unifiPortalLabel--primary unifiPortalLabel--boxAlign unifiPortalLabel--responsive"><span>{{'PAYMENT_LABEL_CITY' | translate}}</span><span ng-if="paymentCtrl.isFieldRequired('city')" class="unifiPortalLabel__required">*</span></label>
+                </div>
+                <div class="col--xs12 col--md7">
+                  <input type="text" name="city" ng-model="paymentCtrl.formModel.cc_city" ng-required="paymentCtrl.isFieldRequired('city')" class="input--full">
+                  <div ng-show="paymentCtrl.form.city.$error.required" class="unifiPortalInputFeedback unifiPortalInputFeedback--danger">{{'PAYMENT_VALIDATION_REQUIRED_CITY' | translate}}</div>
+                </div>
+              </div>
+              <div ng-if="paymentCtrl.isFieldEnabled('state')" class="unifiPortalFormGroup row">
+                <div class="col--xs12 col--md5 noPaddingRight">
+                  <label class="unifiPortalLabel--primary unifiPortalLabel--boxAlign unifiPortalLabel--responsive"><span>{{'PAYMENT_LABEL_STATE' | translate}}</span><span ng-if="paymentCtrl.isFieldRequired('state')" class="unifiPortalLabel__required">*</span></label>
+                </div>
+                <div class="col--xs12 col--md7">
+                  <input type="text" name="state" ng-model="paymentCtrl.formModel.cc_state" ng-required="paymentCtrl.isFieldRequired('state')" class="input--full">
+                  <div ng-show="paymentCtrl.form.state.$error.required" class="unifiPortalInputFeedback unifiPortalInputFeedback--danger">{{'PAYMENT_VALIDATION_REQUIRED_STATE' | translate}}</div>
+                </div>
+              </div>
+              <div ng-if="paymentCtrl.isFieldEnabled('zip')" class="unifiPortalFormGroup row">
+                <div class="col--xs12 col--md5 noPaddingRight">
+                  <label class="unifiPortalLabel--primary unifiPortalLabel--boxAlign unifiPortalLabel--responsive"><span ng-if="paymentCtrl.formModel.cc_country === 'US'">{{'PAYMENT_LABEL_ZIP' | translate}}</span><span ng-if="paymentCtrl.formModel.cc_country !== 'US'">{{'PAYMENT_LABEL_POSTAL_CODE' | translate}}</span><span ng-if="paymentCtrl.isFieldRequired('zip')" class="unifiPortalLabel__required">*</span></label>
+                </div>
+                <div class="col--xs12 col--md7">
+                  <input type="text" name="zip" ng-model="paymentCtrl.formModel.cc_zip" ng-required="paymentCtrl.isFieldRequired('zip')" class="input--full">
+                  <div ng-show="paymentCtrl.formModel.cc_country === 'US' &amp;&amp; paymentCtrl.form.zip.$error.required" class="unifiPortalInputFeedback unifiPortalInputFeedback--danger">{{'PAYMENT_VALIDATION_REQUIRED_ZIP' | translate}}</div>
+                  <div ng-show="paymentCtrl.formModel.cc_country !== 'US' &amp;&amp; paymentCtrl.form.zip.$error.required" class="unifiPortalInputFeedback unifiPortalInputFeedback--danger">{{'PAYMENT_VALIDATION_REQUIRED_POSTAL_CODE' | translate}}</div>
+                </div>
+              </div>
+              <div ng-if="paymentCtrl.isFieldEnabled('country')" class="unifiPortalFormGroup row">
+                <div class="col--xs12 col--md5 noPaddingRight">
+                  <label class="unifiPortalLabel--primary unifiPortalLabel--boxAlign unifiPortalLabel--responsive"><span>{{'PAYMENT_LABEL_COUNTRY' | translate}}</span><span ng-if="paymentCtrl.isFieldRequired('country')" class="unifiPortalLabel__required">*</span></label>
+                </div>
+                <div class="col--xs12 col--md7">
+                  <select type="text" name="country" ng-model="paymentCtrl.formModel.cc_country" ng-required="paymentCtrl.isFieldRequired('country')" ng-options="(countryCode | translateCountry:paymentCtrl.countryNamesMap) for countryCode in paymentCtrl.countryCodes track by countryCode" unifi-portal-backend-error-message-validator="PaymentPage.InvalidCountryCode" class="input--full">
+                    <option value="" ng-if="!paymentCtrl.formModel.cc_country"></option>
+                  </select>
+                  <div ng-show="paymentCtrl.form.country.$error.required" class="unifiPortalInputFeedback unifiPortalInputFeedback--danger">{{'PAYMENT_VALIDATION_REQUIRED_COUNTRY' | translate}}</div>
+                  <div ng-show="paymentCtrl.form.country.$error['PaymentPage.InvalidCountryCode']" class="unifiPortalInputFeedback unifiPortalInputFeedback--danger">{{'PAYMENT_VALIDATION_INVALID_COUNTRY' | translate}}</div>
+                </div>
+              </div>
+              <div class="unifiPortalFormFooter">
+                <div class="unifiPortalFormFooter__right">
+                  <button ng-click="paymentCtrl.showValidation = true" unifi-portal-custom-button unifi-portal-custom-button-background-color="paymentCtrl.hotspotConfigModel.button_color" unifi-portal-custom-button-text-color="paymentCtrl.hotspotConfigModel.button_text_color" busy-toggle="paymentCtrl.isConnecting" busy-toggle-spinner-classes="['unifiPortalSpinner unifiPortalSpinner--light unifiPortalSpinner--centered']" class="unifiPortalMainButton unifiPortalMainButton--responsive">{{'PAYMENT_BUTTON_CONNECT' | translate}}</button>
+                  <button ui-sref="portal.home" unifi-portal-custom-link unifi-portal-custom-link-text-color="paymentCtrl.hotspotConfigModel.box_link_color" class="unifiPortalMainButton unifiPortalMainButton--transparent unifiPortalMainButton--responsive">{{'PAYMENT_BUTTON_CANCEL' | translate}}</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

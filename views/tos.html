@@ -1,0 +1,22 @@
+
+<div class="unifiPortalPage">
+  <div class="unifiPortalPage__centered unifiPortalGrid__container--responsive container--centered container--comfy">
+    <div class="row row--comfy unifiPortalGrid__row--inline">
+      <div ng-if="!!tosCtrl.hotspotConfigModel.getLogoUrl()" class="col--xs12 col--md6 col--lg6 col--lgOffset1 unifiPortalGrid__col--inline unifiPortalGrid__col--middle">
+        <div class="unifiPortalLogo"><img ng-src="{{tosCtrl.hotspotConfigModel.getLogoUrl()}}" class="unifiPortalLogo__image"></div>
+      </div>
+      <div class="col--xs12 col--md6 col--lg4 unifiPortalGrid__col--inline unifiPortalGrid__col--middle">
+        <div unifi-portal-custom-box unifi-portal-custom-box-color="tosCtrl.hotspotConfigModel.box_text_color" unifi-portal-custom-box-background-color="tosCtrl.hotspotConfigModel.box_color" unifi-portal-custom-box-background-opacity="tosCtrl.hotspotConfigModel.box_opacity" class="unifiPortalBox">
+          <div class="unifiPortalFormGroup">
+            <pre class="unifiPortalBox__tosText">{{tosCtrl.hotspotConfigModel.tos}}</pre>
+          </div>
+          <div class="unifiPortalFormFooter">
+            <div class="unifiPortalFormFooter__right">
+              <button ui-sref="portal.home" unifi-portal-custom-link unifi-portal-custom-link-text-color="tosCtrl.hotspotConfigModel.box_link_color" class="unifiPortalMainButton unifiPortalMainButton--responsive unifiPortalMainButton--transparent">{{'TOS_BUTTON_RETURN' | translate}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

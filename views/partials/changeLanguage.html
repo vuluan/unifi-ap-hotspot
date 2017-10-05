@@ -1,0 +1,7 @@
+
+<div ng-if="changeLanguageCtrl.hotspotConfigModel.languages.length &gt; 1" class="unifiPortalLanguage">
+  <div ng-if="!changeLanguageCtrl.isDisplayDropdown()"><a ng-repeat="language in changeLanguageCtrl.hotspotConfigModel.languages" ng-click="changeLanguageCtrl.changeLanguage(language); $event.preventDefault()" href="#" ng-attr-title="{{changeLanguageCtrl.LANGUAGES[language]}}" class="unifiPortalLanguage__flagIcon flag-icon flag-icon-{{changeLanguageCtrl.getFlag(language)}}"></a></div><a ng-if="changeLanguageCtrl.isDisplayDropdown()" ng-click="changeLanguageCtrl.isDropdownVisible = !changeLanguageCtrl.isDropdownVisible; $event.preventDefault()" on-outside-element-click="changeLanguageCtrl.isDropdownVisible = false" href="#" class="unifiPortalLanguage__flagIcon flag-icon flag-icon-{{changeLanguageCtrl.getCurrentLanguageFlag()}}">
+    <ul ng-class="{'is-dropdown-visible': changeLanguageCtrl.isDropdownVisible}" class="unifiPortalDropdown unifiPortalDropdown--medium unifiPortalDropdown--inButton unifiPortalDropdown--right unifiPortalDropdown--scrollable">
+      <li ng-repeat="language in changeLanguageCtrl.hotspotConfigModel.languages" ng-click="changeLanguageCtrl.changeLanguage(language); $event.preventDefault()" class="unifiPortalDropdown__item"><span class="flag-icon flag-icon-{{changeLanguageCtrl.getFlag(language)}}"></span><span class="unifiPortalLanguage__label">{{changeLanguageCtrl.LANGUAGES[language]}}</span></li>
+    </ul></a>
+</div>
