@@ -33,6 +33,10 @@
           version          : 'v2.10'
         });
         FB.AppEvents.logPageView();
+        FB.Event.subscribe('edge.create', function(){
+            alert("HAHA");
+        });
+
       };
 
       (function(d, s, id){
